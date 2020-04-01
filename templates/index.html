@@ -1,0 +1,116 @@
+<html>
+
+<head>
+  <!-- Button from https://fdossena.com/?p=html5cool/buttons/i.frag -->
+  <style>
+    button.button1 {
+      display: inline-block;
+      padding: 0.35em 1.2em;
+      border: 0.1em solid #FFFFFF;
+      margin: 0 0.3em 0.3em 0;
+      border-radius: 0.12em;
+      box-sizing: border-box;
+      text-decoration: none;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 500;
+      color: #000000;
+      text-align: center;
+      transition: all 0.2s;
+      height: 50;
+      width: 120;
+      font-size: 20px;
+    }
+
+    button.button1:hover {
+      color: #FFFFFF;
+      background-color: #000000;
+    }
+
+    @media all and (max-width:30em) {
+      button.button1 {
+        display: block;
+        margin: 0.4em auto;
+      }
+    }
+  </style>
+  <script>
+    function submitFiles(form) {
+      var sum = 0;
+      document.querySelectorAll("input[type=checkbox]").forEach(ele => {
+        if (ele.checked) sum += 1;
+      });
+
+
+      if (sum == 0) {
+        alert("Please select atleast one option");
+        return false;
+      }
+      sum = 0;
+      [].forEach.call(form.filestobeuploaded.files, (file) => {
+        sum += 1;
+      });
+
+      if (sum == 0) {
+        alert("Please select atleast two files");
+        return false;
+      }
+
+
+      subid = (new Date()).getTime();
+      var fd = new FormData();
+      fd.append("subid", String(subid));
+      document.querySelectorAll("input[type=checkbox]").forEach(ele => {
+        if (ele.checked) fd.append(ele.value, "1");
+        else fd.append(ele.value, "0");
+      });
+      [].forEach.call(form.filestobeuploaded.files, (file) => {
+        fd.append(file.name, file);
+        console.log(file.name);
+      });
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          window.location.href = `/success?subid=${subid}`
+        } else if (this.readyState == 4 && this.status == 400) {
+          alert("eroor in input! please check again!!!");
+        }
+      }
+      xhr.open("POST", "/makesubmission");
+      xhr.send(fd);
+      return false;
+    }
+  </script>
+</head>
+
+<body>
+  <div style="background-color:black">
+    <h1>
+      <p style="color:white;text-align:center;">Team Appropriation - Plagiarism Detection</p>
+    </h1>
+  </div>
+  <div style="font-family: 'Roboto', sans-serif">
+    <h2>Select the folder with codes:</h2>
+    <form onsubmit="return submitFiles(this)" action="/success">
+      <!--options BS will come here, we can validate regex as well here only-->
+      <input type="file" name="filestobeuploaded" webkitdirectory mozdirectory /><br><br>
+      <h2>With preprocessing:</h2>
+      <h3>
+        <label for="moss">Moss</label> <input type="checkbox" name="de" value="moss" id="moss">
+        <label for="jplag">Jplag</label> <input type="checkbox" name="de" value="jplag" id="jplag"></h3>
+      <h2>Without preprocessing:</h2>
+      <h3>
+        <label for="mossw">Moss</label> <input type="checkbox" name="de" value="mossw" id="mossw">
+        <label for="jplagw">Jplag</label> <input type="checkbox" name="de" value="jplagw" id="jplagw"></h3><br>
+      <button class="button1" type="submit" name="submit">Submit</button>
+    </form>
+  </div>
+  <div>
+    <h3 style="font-family: 'Roboto', sans-serif">
+      We have designed a simple intemediate pipeline that enchances the working of commonly used plagiarism detectors MOSS and JPlag. This pipeline helps MOSS and JPlag identify cases of plagiairsm
+      like code obfuscation and loop inverting which it struggled to identify before. To try this out, upload C program files above and click on submit to observe the results.
+    </h3>
+  </div>
+
+</body>
+
+</html>
