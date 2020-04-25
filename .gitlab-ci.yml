@@ -36,6 +36,14 @@
 #       - public
 #   only:
 #     - master
+image: docker:latest
+services:
+  - docker:dind
+
+variables:
+  DOCKER_DRIVER: overlay
+
+
 stages:
   - build
   - package
