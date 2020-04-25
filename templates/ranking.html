@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Ranking</title>
+	<script type="text/javascript">
+		function marksFormula(scale, cost, maxcost){
+			s = eval(scale)
+			c = eval(cost)
+			m = eval(maxcost)
+			return Math.round(Math.pow(10, Math.pow(1-c/m , s))*10)/10
+		}
+		function updateMarks(){
+			// document.querySelectorAll("#_marks")
+			scale = document.getElementById("myRange").value
+			maxcost = document.getElementById("maxcost").innerText
+			console.log("changing marks")
+			console.log(scale)
+			document.querySelectorAll("div.program").forEach(ele => {
+		        cost = ele.children[1].children[0].innerText
+		        marks = marksFormula(scale, cost, maxcost)
+		        ele.children[2].innerText = "Marks : " + marks
+				// console.log(cost)
+		  //       console.log(marks)
+		      });
+
+		}
+
+	</script>
+</head>
+<body onload="updateMarks()">
+	<div>
+		Slide to scale grading
+		<div>
+			<input type="range" min="1" max="20" value="2" class="slider" id="myRange" onchange="updateMarks()">
+		</div>
+	</div>
+
+	<div>
+		MaxCost <span id="maxcost">{{maxcost}}</span>
+	</div>
+
+	{%for key in ranking.keys()%}
+	<div id = "{{key}}" class = "program">
+	<span> {{key}}</span>
+	<span id = "{{key}}_cost" class = "program_cost"> Cost: <span class = "cval">{{ranking[key]}}</span></span>
+	<span id = "{{key}}_marks" class="marks"> </span>
+	</div>
+	{%endfor%}
+
+
+</body>
+</html>

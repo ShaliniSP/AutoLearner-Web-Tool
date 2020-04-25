@@ -1,0 +1,18 @@
+<pre>
+	<h3>CLARA output</h3>
+	{{content}}
+	{%if repairs%}
+	<h3>Repairs</h3>
+	{%for key in repairs.keys()%}
+	<h4>Repair for <a href="/getcode?subid={{subid}}&fname={{key}}">{{key}}</a></h4>
+
+	<div>
+		{{content[repairs[key][0]:repairs[key][1]]}}
+	</div>
+	{%endfor%}
+	{%endif%}
+	{%if ranking%}	
+	<h3>Ranking Results</h3>
+	{{ranking}}
+	{%endif%}
+</pre>
