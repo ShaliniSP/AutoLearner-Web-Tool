@@ -27,6 +27,8 @@ pages:
     - mkdir .public
     - cp -r * .public
     - mv .public public
+    - pip install --no-cache-dir -r requirements.txt
+    - FLASK_APP=flaskapp.py flask run
   artifacts:
     paths:
       - public
