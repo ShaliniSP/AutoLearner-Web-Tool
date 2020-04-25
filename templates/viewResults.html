@@ -34,10 +34,10 @@
   </style>
   <script>
     function changesource(e) {
-      if (e==1) document.querySelector("#ifr").src = "/{{name}}/moss/report.html";
-      if (e==2) document.querySelector("#ifr").src = "/{{name}}/jplag/index.html";
-      if (e==3) document.querySelector("#ifr").src = "/{{name}}/mossw/report.html";
-      if (e==4) document.querySelector("#ifr").src = "/{{name}}/jplagw/index.html";
+      console.log("{{name}}")
+      if (e==1) document.querySelector("#ifr").src = "processop?subid={{name}}&type=old";
+      if (e==2) document.querySelector("#ifr").src = "processop?subid={{name}}&type=new";
+      if (e==3) document.querySelector("#ifr").src = "ranking?subid={{name}}";
     }
   </script>
   <link rel="stylesheet" href="bootstrap/bootstrap.min.css">
@@ -46,12 +46,11 @@
 
 <body onload="document.getElementsByTagName('button')[0].click()">
   <div style="background-color:black">
-    <h1><p style="color:white;text-align:center;">Team Appropriation - Plagiarism Detection</p></h1>
+    <h1><p style="color:white;text-align:center;">Team AutoLearner</p></h1>
   </div>
-  <button class="button1" onclick="changesource(1)">MOSS Results</button>
-  <button class="button1" onclick="changesource(2)">JPlag Results</button>
-  <button class="button1" onclick="changesource(3)">MOSS Results without preprocessing</button>
-  <button class="button1" onclick="changesource(4)">JPlag Results without preprocessing</button>
+  <button class="button1" onclick="changesource(1)">CLARA Results</button>
+  <button class="button1" onclick="changesource(2)">E-CLARA Results</button>
+  <button class="button1" onclick="changesource(3)">Ranking Results</button>
 
   <div>
     <h3 style="font-family: 'Roboto', sans-serif">
