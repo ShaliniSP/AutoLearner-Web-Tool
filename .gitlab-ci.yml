@@ -8,7 +8,7 @@
 #    - docker build --rm=true -t clara .
 #    - docker run -ti -h clara --name clara clara /bin/bash
 
-image: python:3.6
+# image: python:3.6
 
 #pages:
 #  script:
@@ -21,18 +21,31 @@ image: python:3.6
 #  - master
 
 
-pages:
-  stage: deploy
+# pages:
+#   stage: deploy
+#   script:
+#     - mkdir .public
+#     - cp -r * .public
+#     - mv .public public
+#     - apt-get update -q -y
+#     - apt-get install -y python-pip
+#     - pip install --no-cache-dir -r requirements.txt
+#     - FLASK_APP=flaskapp.py flask run
+#   artifacts:
+#     paths:
+#       - public
+#   only:
+#     - master
+stages:
+  - build
+  - package
+
+flask-build:
+  image: python:3.6
+  stage: build
   script:
-    - mkdir .public
-    - cp -r * .public
-    - mv .public public
-    - apt-get update -q -y
-    - apt-get install -y python-pip
-    - pip install --no-cache-dir -r requirements.txt
+    - pip install flask
     - FLASK_APP=flaskapp.py flask run
   artifacts:
     paths:
-      - public
-  only:
-    - master
+      - build/*
