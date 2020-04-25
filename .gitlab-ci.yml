@@ -8,6 +8,17 @@
 #    - docker build --rm=true -t clara .
 #    - docker run -ti -h clara --name clara clara /bin/bash
 
+#image: python:3.6
+
+#pages:
+#  script:
+#  - pip install --no-cache-dir -r requirements.txt
+#  - FLASK_APP=app.py flask run
+#  artifacts:
+#    paths:
+#    - public
+#  only:
+#  - master
 
 
 pages:
