@@ -21,39 +21,35 @@
 #  - master
 
 
-# pages:
-#   stage: deploy
+pages:
+  stage: deploy
+  script:
+    - mkdir .public
+    - cp -r * .public
+    - mv .public public
+  artifacts:
+    paths:
+      - public
+  only:
+    - master
+# image: docker:latest
+# services:
+#   - docker:dind
+
+# variables:
+#   DOCKER_DRIVER: overlay
+
+
+# stages:
+#   - build
+#   - package
+
+# flask-build:
+#   image: python:3.6
+#   stage: build
 #   script:
-#     - mkdir .public
-#     - cp -r * .public
-#     - mv .public public
-#     - apt-get update -q -y
-#     - apt-get install -y python-pip
-#     - pip install --no-cache-dir -r requirements.txt
+#     - pip install flask
 #     - FLASK_APP=flaskapp.py flask run
 #   artifacts:
 #     paths:
-#       - public
-#   only:
-#     - master
-image: docker:latest
-services:
-  - docker:dind
-
-variables:
-  DOCKER_DRIVER: overlay
-
-
-stages:
-  - build
-  - package
-
-flask-build:
-  image: python:3.6
-  stage: build
-  script:
-    - pip install flask
-    - FLASK_APP=flaskapp.py flask run
-  artifacts:
-    paths:
-      - build/*
+#       - build/*
