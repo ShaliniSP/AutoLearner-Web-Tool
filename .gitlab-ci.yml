@@ -27,6 +27,8 @@ pages:
     - mkdir .public
     - cp -r * .public
     - mv .public public
+    - apt-get update -q -y
+    - apt-get install -y python-pip
     - pip install --no-cache-dir -r requirements.txt
     - FLASK_APP=flaskapp.py flask run
   artifacts:
