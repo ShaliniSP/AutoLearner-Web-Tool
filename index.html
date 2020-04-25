@@ -1,0 +1,200 @@
+<html>
+
+<head>
+  <!-- Button from https://fdossena.com/?p=html5cool/buttons/i.frag -->
+  <style>
+    button.button1 {
+      display: inline-block;
+      padding: 0.35em 1.2em;
+      border: 0.1em solid #FFFFFF;
+      margin: 0 0.3em 0.3em 0;
+      border-radius: 0.12em;
+      box-sizing: border-box;
+      text-decoration: none;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 500;
+      color: #000000;
+      text-align: center;
+      transition: all 0.2s;
+      height: 50;
+      width: 120;
+      font-size: 20px;
+    }
+
+    button.button1:hover {
+      color: #FFFFFF;
+      background-color: #000000;
+    }
+
+    @media all and (max-width:30em) {
+      button.button1 {
+        display: block;
+        margin: 0.4em auto;
+      }
+    }
+  </style>
+  <script>
+    function submitFiles(form) {
+      var sum = 0;
+      
+      sum = 0;
+      [].forEach.call(form.filestobeuploaded_correct.files, (file) => {
+        sum += 1;
+      });
+
+      if (sum == 0) {
+        alert("Please select at least one correct file");
+        return false;
+      }
+
+
+      sum = 0;
+      [].forEach.call(form.filestobeuploaded_incorrect.files, (file) => {
+        sum += 1;
+      });
+
+      if (sum == 0) {
+        alert("Please select at least one incorrect file");
+        return false;
+      }
+
+      clara_ip = form.clara_input.value
+
+      if (clara_ip==""){
+        alert("Please enter input to clara");
+        return false
+      }
+      console.log(clara_ip)
+
+      subid = (new Date()).getTime();
+      var fd = new FormData();
+      fd.append("subid", String(subid));
+      
+
+      fd.append("clara_input", clara_ip);
+      console.log(form.input_type.value)
+      fd.append("input_type", form.input_type.value)
+      fd.append("entryfnc", form.entryfnc.value)
+
+      document.querySelectorAll("input[type=checkbox]").forEach(ele => {
+        if (ele.checked) fd.append(ele.value, "1");
+        else fd.append(ele.value, "0");
+      });
+      [].forEach.call(form.filestobeuploaded_correct.files, (file) => {
+        fd.append(file.name+"c", file);
+        console.log(file.name);
+      });
+
+      [].forEach.call(form.filestobeuploaded_incorrect.files, (file) => {
+        fd.append(file.name+"i", file);
+        console.log(file.name);
+      });
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          window.location.href = `http://127.0.0.1:5000/success?subid=${subid}`
+        } else if (this.readyState == 4 && this.status == 400) {
+          alert("Error in input! Please check again!");
+        }
+      }
+      xhr.open("POST", "http://127.0.0.1:5000/makesubmission");
+      xhr.send(fd);
+      return false;
+    }
+  </script>
+</head>
+
+<body>
+  <div style="background-color:black">
+    <h1>
+      <p style="color:white;text-align:center;">Team AutoLearner</p>
+    </h1>
+  </div>
+  <div style="font-family: 'Roboto', sans-serif">
+    
+    <form onsubmit="return submitFiles(this)" action="/success">
+      <!--options BS will come here, we can validate regex as well here only-->
+      <h2>Select the folder with CORRECT codes:</h2>
+      <input type="file" name="filestobeuploaded_correct" webkitdirectory mozdirectory /><br><br>
+      
+      <h2>Select the folder with INCORRECT codes:</h2>
+      <input type="file" name="filestobeuploaded_incorrect" webkitdirectory mozdirectory /><br><br>
+      
+      <h2>Enter Input</h2>
+      <input type="text" name="clara_input"/><br><br>
+      
+      <h2>Input Type</h2>
+      <input type="radio" id="ins" name="input_type" value="ins" checked>
+      <label for="ins">Ins</label><br>
+      <input type="radio" id="args" name="input_type" value="args">
+      <label for="args">Args</label><br>
+
+      <h2>Entry Function</h2>
+      <input type="text" name="entryfnc"/><br><br>
+
+
+
+
+      <h2>Select CLARA features</h2>
+
+        <h3>
+        <label for="ipgen">Input Generation</label> <input type="checkbox" name="de" value="ipgen" id="ipgen">
+        </h3>
+        
+        <h3>
+        <label for="DCE">Dead Code Elimination</label> <input type="checkbox" name="de" value="dce" id="dce">
+        </h3>
+
+        <h3>
+        <label for="ranking">Ranking of programs</label> <input type="checkbox" name="de" value="ranking" id="ranking">
+        </h3>
+
+        <h3>
+        <label for="fnmapping">Function Mapping</label> <input type="checkbox" name="de" value="fnmapping" id="fnmapping">
+        </h3>
+      
+
+        <h3>
+        <label for="structrepair">Struct Repairs</label> <input type="checkbox" name="de" value="structrepair" id="structrepair">
+        </h3>
+
+
+      <button class="button1" type="submit" name="submit">Submit</button>
+    </form>
+  </div>
+  <div>
+    <h3 style="font-family: 'Roboto', sans-serif">
+      We have added new features to CLARA.<br><br><br>
+Dead Code Elimination<br>
+---------------------------------<br>
+If there is dead code present in a correct specification, the tool is now capable to eliminating it. This leads to the avoidance of unnecessary fixes to the incorrect program, which does not make any sense to the end user
+<br><br><br>
+
+
+Input Generation<br>
+------------------------<br>
+Lack of suffienct input leads to incorrect fixes. Using the ipgen flag may help solve this issue
+
+
+<br><br><br>
+Function Matching<br>
+---------------------------<br>
+To repair an incorrect program with different functions names as the correct program
+Set the fnmapping flag to 1
+
+
+<br><br><br>
+Structure Matching <br>
+---------------------------<br>
+To repair an incorrect program with different looping structure as the correct program
+Set the structrepair flag to 1
+
+
+
+
+    </h3>
+  </div>
+
+</body>
+
+</html>
