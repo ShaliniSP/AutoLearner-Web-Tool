@@ -1,0 +1,229 @@
+p20_1_i.c
+Line 9 >
+
+
+p20_2_i.c
+Line 9 <
+Line 11 > 
+Or 
+Swap of print statements
+
+p21_1_i.c
+|| changed to && - line 11,13
+
+
+p21_2_i.c
+< changed to > on line 11,12,18
+
+
+
+p22_1_i.c
+> changed to == on line 20
+
+
+p22_2_i.c
+>=0 changed to >1 on line 26
+
+
+p23_1_i.c
+first_term = 1, second_term = 2 changed to first_term = 0, second_term = 1 line 4
+
+p23_2_i.c
+> changed to < on line 13
+
+
+p24_1_i.c
+Statement to initialize i missing. i=num+1 to be added.
+
+
+p24_2_i.c
+flag_var=0; changed to flag_var=1; line 
+
+
+
+p25_1_i.c
+33 changed to 32 on line 19
+
+
+p25_2_i.c
+|| changed to && on line 18
+
+p26_1_i.c
+
+
+      rem = num / 10;
+      sum = sum - (rem*rem*rem);
+
+      Changed to 
+
+	   rem = num % 10;
+      sum = sum + (rem*rem*rem);
+
+      line 22,23
+
+p26_2_i.c
+   for(; num == 0; num=10) changed to    for(; num != 0; num/=10)
+
+
+p27_1_i.c
+/ changed to % on line 18
+
+
+p27_2_i.c
+
+Add +remainder; to statement on line 19
+
+p28_1_i.c
+Add temp=num;
+      reverse_num=0; statements at the starting of for loop on line 12
+
+
+p28_2_i.c
+Add    num=start;
+ before while loop on line 13
+
+
+p29_1_i.c
+num%2 == 1 changed to num%2 == 0 on line 14
+
+
+p29_2_i.c
+Swap print statements on line 14, 16
+
+p2_1_i.c
+
+
+p2_2_i.c
+	for (i = length ; i >= 0; i--)  changed to 	for (i = length - 1; i >= 0; i--) line 12
+
+
+p32_1_i.c
+
+    if(ch=='a'||ch=='e'||ch=='i'
+    		||ch=='o'||ch=='u')
+changed to if(ch=='a'||ch=='A'||ch=='e'||ch=='E'||ch=='i'||ch=='I'
+    		||ch=='o'||ch=='O'||ch=='u'||ch=='U')
+
+on line 10
+
+
+
+p32_2_i.c
+    if (isVowel == true)
+changed to     if (isVowel == false)
+line 16
+
+
+p33_1_i.c
+            if ( y % 400 == 0) 
+            chaged to 
+                        if ( y % 400 != 0)
+                        line 14
+
+p33_2_i.c
+
+            if ( y % 400 == 0) 
+            chaged to 
+                        if ( y % 400 != 0)
+                        line 14
+
+p34_1_i.c
+sum = 1 changed to sum = 0 on line 4
+
+
+
+p34_2_i.c
+
+    count=1;
+ changed to     count=0; line 14
+
+sum = count; chaged to sum = sum + count; line 16
+
+p35_1_i.c
+
+
+
+p35_2_i.c
+p36_1_i.c
+p36_2_i.c
+p37_1_i.c
+for(i=1; str[i]!='\0'; ++i);
+changed to 
+for(i=0; str[i]!='\0'; ++i);
+line 16
+
+
+p37_2_i.c
+
+    i = 1;
+changed to     i = 0;
+line 17
+
+
+p38_1_i.c
+      str1[i]==str2[j];
+changed to 
+
+      str1[i]=str2[j];
+      line 23
+
+
+
+p38_2_i.c
+
+   i=1; 
+
+   changed to    i=0;
+   line 16 
+
+p39_1_i.c //replace gets with scanf
+
+
+
+p39_2_i.c //replace gets with scanf
+p40_1_i.c 
+p40_2_i.c
+p41_1_i.c
+
+      for (k = j ; k < count; ++k)
+      changed to 
+      for (k = j + 1; k < count; ++k)
+      line 12
+
+p41_2_i.c
+		//swap logic is wrong.
+
+
+            number[j] = temp;
+
+            change to
+
+            number[j] = number[k];
+            number[k] = temp;
+line 16,17,18
+
+p43_1_i.c
+     return arr[n] + sum_array_elements(arr, n);
+changed to 
+     return arr[n] + sum_array_elements(arr, n-1);
+line 16
+
+
+p43_2_i.c
+      sum = sum + ptr;
+changed to 
+      sum = sum + *ptr;
+      line 19
+
+
+
+
+p43_3_i.c
+
+Base case missing
+add if (n < 0) {
+     //base case:
+     return 0;
+   }
+
+   line 11. At beg of function.
