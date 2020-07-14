@@ -171,7 +171,8 @@ class getLoopStructure(c_ast.NodeVisitor):
 	def getStructDiff(self, ls1, inside = None):
 		cost, operations = simple_distance(self.loopStruct, ls1, return_operations = True, get_label = get_type)
 		print "Cost of struct repairs =", cost
-		
+		self.sm_cost = cost
+
 
 		# pdb.set_trace()
 

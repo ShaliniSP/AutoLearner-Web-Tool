@@ -29,6 +29,8 @@ class force_matching:
         self.del_locations = set()
         self.struct_repair = {}
 
+        self.sm_cost = 0
+
     def build_sm(self, loc1, loc2):
         # pdb.set_trace()
         # Check if already mapped
@@ -90,6 +92,9 @@ class force_matching:
         print "Number the loops in", self.f1.name, "in a serial fashion."
         print "Make the following structural edits to", self.f1.name, ":"
         ls2.getStructDiff(ls1.loopStruct, ls2.loopStruct)
+        # pdb.set_trace()
+        self.sm_cost = ls2.sm_cost
+
         
         print "Function", ls2.fname, "is changed to:"
         generator = c_generator.CGenerator()

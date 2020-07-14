@@ -116,6 +116,7 @@ class Grader():
 					c = re.search(r'\(cost(.*?)\)', t)
 					cost_val = c.group(1).split("=")
 					total_cost += eval(cost_val[1])
+				total_cost += R.sm_cost
 				if total_cost > max_cost:
 					max_cost = total_cost
 
@@ -140,14 +141,18 @@ class Grader():
 
 			try:
 				fb = self.clara.feedback()
-				
-
+				# sm_cost = clara.sm_cost
+				total_cost = None
 				for f in fb:
 					print f
-					costs = re.findall(r'\(cost(.*?)\)', f)
-					for c in costs:
-						cost_val = c.split("=")
-						total_cost += eval(cost_val[1])
+
+					if total_cost == None:
+						total_cost = f
+					# costs = re.findall(r'\(cost(.*?)\)', f)
+					# for c in costs:
+					# 	cost_val = c.split("=")
+					# 	total_cost += eval(cost_val[1])
+				# total_cost+=sm_cost
 				if(total_cost != 0):
 					cost_dict[inc.name] = total_cost
 				else:

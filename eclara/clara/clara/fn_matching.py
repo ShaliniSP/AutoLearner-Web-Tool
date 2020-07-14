@@ -33,6 +33,7 @@ class Fn_Matching(Matching):
         self.fnmapping = fnmapping
         self.structrepair = structrepair
         self.fmap = {}
+        self.sm_cost = 0
 
     def replace_fnCalls(self, expr, fmap):
         if hasattr(expr, 'name'):
@@ -120,6 +121,7 @@ class Fn_Matching(Matching):
 
     def MS(self, P,Q, astP = None, astQ = None):
         # print "in MS"
+        self.sm_cost = 0
         fncs1 = P.getfncnames()
         fncs2 = Q.getfncnames()
         # Go through all functions
@@ -185,11 +187,16 @@ class Fn_Matching(Matching):
                     # print "HERES"
                     # pdb.set_trace()
                     if self.fnmapping:
-                        fm = force_matching(f1,f2, astP, astQ, P, Q, fmap = self.fmap).force_sm()
+                        obj =force_matching(f1,f2, astP, astQ, P, Q, fmap = self.fmap) 
+
+                        fm = obj.force_sm()
                     else:
-                        fm = force_matching(f1,f2, astP, astQ, P, Q).force_sm()
+                        obj =force_matching(f1,f2, astP, astQ, P, Q) 
+                        fm = obj.force_sm()
                     if fm!=False:
                         sm[fnc1] = fm
+                        self.sm_cost += obj.sm_cost
+                        
                     else:
                         return
                 else:

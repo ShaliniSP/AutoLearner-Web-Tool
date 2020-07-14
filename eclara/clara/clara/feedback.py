@@ -83,7 +83,8 @@ class Feedback(object):
                 entryfnc=self.entryfnc, astP = self.spec_ast, astQ = self.impl_ast)
 
             # Collect result
-            self.cost = 0
+            # self.cost = 0
+            self.cost = R.sm_cost
             self.size = 0
             for _, repairs, _ in self.results.values():
                 for rep in repairs:
@@ -229,6 +230,7 @@ class FeedGen(object):
         self.feedmod = feedmod
         self.fnmapping = fnmapping
         self.structrepair = structrepair
+        self.sm_cost = 0
 
     def generate(self, impl, specs, inter, ins=None, args=None,
                  entryfnc='main', ignoreio=False, ignoreret=False,
@@ -295,6 +297,8 @@ class FeedGen(object):
             else:
                 # Should not happen :)
                 assert False, 'unknown status: %s' % (res.statusstr(),)
+
+
 
         # Return best repaired if there are any
         if len(feedbacks) > 0:

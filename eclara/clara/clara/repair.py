@@ -5,6 +5,7 @@ Repair algorithm
 # Python imports
 import sys
 import time
+import pdb
 
 # External libs
 from zss import Node, simple_distance as tree_distance
@@ -81,6 +82,7 @@ class Repair(object):
         self.cleanstrings = cleanstrings
         self.fnmapping = fnmapping
         self.structrepair = structrepair
+        self.sm_cost = 0
 
         if solver is None:
             from ilp import Solver
@@ -135,6 +137,7 @@ class Repair(object):
         if self.fnmapping or self.structrepair:
             M = Fn_Matching(verbose=self.verbose, fnmapping = self.fnmapping, structrepair = self.structrepair)
             sm = M.match_struct(P, Q, astP = astP, astQ = astQ)
+            self.sm_cost = M.sm_cost
             return M, sm
         M = Matching(verbose=self.verbose)
         sm = M.match_struct(P, Q)
@@ -168,7 +171,7 @@ class Repair(object):
                                   (self.sm[fnc1.name],))
 
         self.debug('total time: %.3f', round(time.time() - self.starttime, 3))
-
+        # pdb.set_trace()
         return results
 
     def filter_potential(self, P):

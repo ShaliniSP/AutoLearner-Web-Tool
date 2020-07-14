@@ -156,6 +156,8 @@ New options:
         self.numi =  int(self.opts.pop('numi', -1))
         self.fnmapping = int(self.opts.pop('fnmapping', 0))
         self.structrepair = int(self.opts.pop('structrepair', 0))
+        self.sm_cost = 0
+
 
 
         self.poolsize = self.opts.pop('poolsize', None)
@@ -368,11 +370,14 @@ New options:
             if self.maxfeedcost > 0 and feed.cost > self.maxfeedcost:
                 self.error('max cost exceeded (%d > %d)',
                            feed.cost, self.maxfeedcost)
-            for f in feed.feedback:
-                if(self.cmd == "grade"):
-                    yield f
-                else:
-                    print '*', f
+            
+            if(self.cmd == "grade"):
+                yield feed.cost
+                for f in feed.feedback:
+                        yield f
+            else:
+                print '*', f
+            # self.sm_cost = F.sm_cost
 
                 
         elif feed.status == Feedback.STATUS_ERROR:

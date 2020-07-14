@@ -5,20 +5,20 @@
 
 
 docker cp clara/clara/loop_structure.py clara_c:/usr/local/lib/python2.7/dist-packages/clara/loop_structure.py
-# docker cp clara/clara/fn_matching.py clara_c:/usr/local/lib/python2.7/dist-packages/clara/fn_matching.py
-# docker cp clara/clara/forcematching.py clara_c:/usr/local/lib/python2.7/dist-packages/clara/forcematching.py
-# # docker cp clara/clara/repair.py clara_c:/usr/local/lib/python2.7/dist-packages/clara/repair.py
+docker cp clara/clara/fn_matching.py clara_c:/usr/local/lib/python2.7/dist-packages/clara/fn_matching.py
+docker cp clara/clara/forcematching.py clara_c:/usr/local/lib/python2.7/dist-packages/clara/forcematching.py
+docker cp clara/clara/repair.py clara_c:/usr/local/lib/python2.7/dist-packages/clara/repair.py
 docker cp clara/clara/grader.py clara_c:/usr/local/lib/python2.7/dist-packages/clara/grader.py
 # # docker cp clara/clara/feedback_python.py clara_c:/usr/local/lib/python2.7/dist-packages/clara/feedback_python.py
 # # docker cp clara/clara/py_parser.py clara_c:/usr/local/lib/python2.7/dist-packages/clara/py_parser.py
 # # docker cp clara/clara/c_parser.py clara_c:/usr/local/lib/python2.7/dist-packages/clara/c_parser.py
 
 
-# docker cp clara/clara/feedback.py clara_c:/usr/local/lib/python2.7/dist-packages/clara/feedback.py
+docker cp clara/clara/feedback.py clara_c:/usr/local/lib/python2.7/dist-packages/clara/feedback.py
 # docker cp clara/clara/clustering.py clara_c:/usr/local/lib/python2.7/dist-packages/clara/clustering.py
 
 
-# docker cp clara/bin/clara clara_c:/usr/local/bin/clara
+docker cp clara/bin/clara clara_c:/usr/local/bin/clara
 
 
 
@@ -53,5 +53,5 @@ docker cp clara/clara/grader.py clara_c:/usr/local/lib/python2.7/dist-packages/c
 
 # docker exec -it clara_c clara grade demo/c4.c demo/c5.c demo/i4.c demo/i5.c --verbose 0 --numc 2 --numi 2 --ins "[[1,2,3], [2,3,1], [3,1,2]]"
 
-# docker exec -it clara_c clara grade demo/c7.c demo/i7.c demo/i9.c  --numc 1 --numi 2 --args "[[[4,2,1,3],4]]" --ignoreio 1 --verbose 0 --structrepair 1 --entryfnc sort_numbers_ascending
+docker exec -it clara_c clara grade demo/c7.c demo/i7.c demo/i8.c demo/i9.c  --numc 1 --numi 3 --args "[[[4,2,1,3],4]]" --ignoreio 1 --verbose 0 --structrepair 1 --entryfnc sort_numbers_ascending
 
